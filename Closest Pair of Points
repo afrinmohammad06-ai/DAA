@@ -1,0 +1,53 @@
+#include <iostream>
+#include <cmath>
+#include <iomanip>
+using namespace std;
+
+struct Point {
+    double x, y;
+};
+
+double distance(Point p1, Point p2) {
+    return sqrt((p1.x - p2.x) * (p1.x - p2.x) +
+                (p1.y - p2.y) * (p1.y - p2.y));
+}
+
+int main() {
+    int n;
+
+    cout << "Enter number of points: ";
+    cin >> n;
+
+    Point p[n];
+
+    cout << "Enter x and y coordinates:\n";
+
+    for (int i = 0; i < n; i++)
+        cin >> p[i].x >> p[i].y;
+
+    double minDist = 1e9;
+    int p1 = 0, p2 = 1;
+
+    for (int i = 0; i < n; i++) {
+        for (int j = i + 1; j < n; j++) {
+
+            double d = distance(p[i], p[j]);
+
+            if (d < minDist) {
+                minDist = d;
+                p1 = i;
+                p2 = j;
+            }
+        }
+    }
+
+    cout << fixed << setprecision(2);
+
+    cout << "Closest points: (" << p[p1].x << ", "
+         << p[p1].y << ") and ("
+         << p[p2].x << ", " << p[p2].y << ")" << endl;
+
+    cout << "Minimum distance = " << minDist;
+
+    return 0;
+}
